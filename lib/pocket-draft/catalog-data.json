@@ -1,0 +1,989 @@
+{
+  "devices": [
+    {
+      "id": "iphone-18-pro-max",
+      "name": "iPhone 18 Pro Max",
+      "defaultFrameID": "silver",
+      "portraitDisplayPixelSize": {
+        "width": 1320,
+        "height": 2868
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05102040816326531,
+          "y": 0.022,
+          "width": 0.8979591836734694,
+          "height": 0.956
+        },
+        "cornerRadius": 0.09575757575757576,
+        "imageAspectRatio": 0.49,
+        "cornerRadii": {
+          "topLeading": 0.09696969696969697,
+          "topTrailing": 0.09696969696969697,
+          "bottomLeading": 0.09636363636363636,
+          "bottomTrailing": 0.09575757575757576
+        }
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.022,
+          "y": 0.05170068027210884,
+          "width": 0.956,
+          "height": 0.8979591836734694
+        },
+        "cornerRadius": 0.04407252440725244,
+        "imageAspectRatio": 2.0408163265306123,
+        "cornerRadii": {
+          "topLeading": 0.04435146443514645,
+          "topTrailing": 0.04407252440725244,
+          "bottomLeading": 0.044630404463040445,
+          "bottomTrailing": 0.044630404463040445
+        }
+      }
+    },
+    {
+      "id": "iphone-18-pro",
+      "name": "iPhone 18 Pro",
+      "defaultFrameID": "silver",
+      "portraitDisplayPixelSize": {
+        "width": 1206,
+        "height": 2622
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05333333333333334,
+          "y": 0.025,
+          "width": 0.8933333333333333,
+          "height": 0.95
+        },
+        "cornerRadius": 0.10348258706467663,
+        "imageAspectRatio": 0.4891304347826087,
+        "cornerRadii": {
+          "topLeading": 0.10480928689883914,
+          "topTrailing": 0.10480928689883914,
+          "bottomLeading": 0.10348258706467663,
+          "bottomTrailing": 0.10348258706467663
+        }
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.025,
+          "y": 0.05333333333333334,
+          "width": 0.95,
+          "height": 0.8933333333333333
+        },
+        "cornerRadius": 0.0479023646071701,
+        "imageAspectRatio": 2.0444444444444443,
+        "cornerRadii": {
+          "topLeading": 0.0479023646071701,
+          "topTrailing": 0.0479023646071701,
+          "bottomLeading": 0.04851258581235698,
+          "bottomTrailing": 0.04851258581235698
+        }
+      }
+    },
+    {
+      "id": "iphone-duo-inner-open",
+      "name": "iPhone Duo (Inner Open)",
+      "defaultFrameID": "night-sky",
+      "portraitDisplayPixelSize": {
+        "width": 2007,
+        "height": 2853
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.0534045393858478,
+          "y": 0.038797284190106696,
+          "width": 0.8931909212283045,
+          "height": 0.9224054316197866
+        },
+        "cornerRadius": 0.05142002989536622,
+        "imageAspectRatio": 0.7264791464597479,
+        "cornerRadii": {
+          "topLeading": 0.051818634778276036,
+          "topTrailing": 0.05142002989536622,
+          "bottomLeading": 0.052217239661185855,
+          "bottomTrailing": 0.052217239661185855
+        }
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.038797284190106696,
+          "y": 0.0534045393858478,
+          "width": 0.9224054316197866,
+          "height": 0.8931909212283045
+        },
+        "cornerRadius": 0.03617245005257624,
+        "imageAspectRatio": 1.376502002670227,
+        "cornerRadii": {
+          "topLeading": 0.03673326323168595,
+          "topTrailing": 0.03673326323168595,
+          "bottomLeading": 0.03645285664213109,
+          "bottomTrailing": 0.03617245005257624
+        }
+      }
+    },
+    {
+      "id": "iphone-duo-outer-closed",
+      "name": "iPhone Duo (Outer Closed)",
+      "defaultFrameID": "night-sky",
+      "portraitDisplayPixelSize": {
+        "width": 1398,
+        "height": 2034
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05590851334180432,
+          "y": 0.03646308113035551,
+          "width": 0.8881829733163914,
+          "height": 0.927073837739289
+        },
+        "cornerRadius": 0.005722460658082976,
+        "imageAspectRatio": 0.7174111212397447,
+        "cornerRadii": {
+          "topLeading": 0.005722460658082976,
+          "topTrailing": 0.08240343347639485,
+          "bottomLeading": 0.005722460658082976,
+          "bottomTrailing": 0.08183118741058655
+        }
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.03646308113035551,
+          "y": 0.05590851334180432,
+          "width": 0.927073837739289,
+          "height": 0.8881829733163914
+        },
+        "cornerRadius": 0.003933136676499509,
+        "imageAspectRatio": 1.3939008894536213,
+        "cornerRadii": {
+          "topLeading": 0.05624385447394297,
+          "topTrailing": 0.05585054080629302,
+          "bottomLeading": 0.003933136676499509,
+          "bottomTrailing": 0.003933136676499509
+        }
+      }
+    },
+    {
+      "id": "iphone-duo-outer-open",
+      "name": "iPhone Duo (Outer Open)",
+      "defaultFrameID": "night-sky",
+      "portraitDisplayPixelSize": {
+        "width": 1398,
+        "height": 2034
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.5137434554973822,
+          "y": 0.03646308113035551,
+          "width": 0.4574607329842932,
+          "height": 0.927073837739289
+        },
+        "cornerRadius": 0.005722460658082976,
+        "imageAspectRatio": 1.3928896991795807,
+        "cornerRadii": {
+          "topLeading": 0.005722460658082976,
+          "topTrailing": 0.08240343347639485,
+          "bottomLeading": 0.005722460658082976,
+          "bottomTrailing": 0.08183118741058655
+        }
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.03646308113035551,
+          "y": 0.028795811518324606,
+          "width": 0.927073837739289,
+          "height": 0.4574607329842932
+        },
+        "cornerRadius": 0.003933136676499509,
+        "imageAspectRatio": 0.7179319371727748,
+        "cornerRadii": {
+          "topLeading": 0.05624385447394297,
+          "topTrailing": 0.05585054080629302,
+          "bottomLeading": 0.003933136676499509,
+          "bottomTrailing": 0.003933136676499509
+        }
+      }
+    },
+    {
+      "id": "iphone-17-pro-max",
+      "name": "iPhone 17 Pro Max",
+      "defaultFrameID": "silver",
+      "portraitDisplayPixelSize": {
+        "width": 1320,
+        "height": 2868
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05102040816326531,
+          "y": 0.022,
+          "width": 0.8979591836734694,
+          "height": 0.956
+        },
+        "cornerRadius": 0.102,
+        "imageAspectRatio": 0.49
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.022,
+          "y": 0.05102040816326531,
+          "width": 0.956,
+          "height": 0.8979591836734694
+        },
+        "cornerRadius": 0.04694560669456067,
+        "imageAspectRatio": 2.0408163265306123
+      }
+    },
+    {
+      "id": "iphone-17-pro",
+      "name": "iPhone 17 Pro",
+      "defaultFrameID": "silver",
+      "portraitDisplayPixelSize": {
+        "width": 1206,
+        "height": 2622
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05333333333333334,
+          "y": 0.025,
+          "width": 0.8933333333333333,
+          "height": 0.95
+        },
+        "cornerRadius": 0.105,
+        "imageAspectRatio": 0.4891304347826087
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.025,
+          "y": 0.05333333333333334,
+          "width": 0.95,
+          "height": 0.8933333333333333
+        },
+        "cornerRadius": 0.04829519450800915,
+        "imageAspectRatio": 2.0444444444444443
+      }
+    },
+    {
+      "id": "iphone-17",
+      "name": "iPhone 17",
+      "defaultFrameID": "black",
+      "portraitDisplayPixelSize": {
+        "width": 1206,
+        "height": 2622
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05333333333333334,
+          "y": 0.025,
+          "width": 0.8933333333333333,
+          "height": 0.95
+        },
+        "cornerRadius": 0.105,
+        "imageAspectRatio": 0.4891304347826087
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.025,
+          "y": 0.05333333333333334,
+          "width": 0.95,
+          "height": 0.8933333333333333
+        },
+        "cornerRadius": 0.04829519450800915,
+        "imageAspectRatio": 2.0444444444444443
+      }
+    },
+    {
+      "id": "iphone-air",
+      "name": "iPhone Air",
+      "defaultFrameID": "space-black",
+      "portraitDisplayPixelSize": {
+        "width": 1260,
+        "height": 2736
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.043478260869565216,
+          "y": 0.025,
+          "width": 0.9130434782608695,
+          "height": 0.95
+        },
+        "cornerRadius": 0.105,
+        "imageAspectRatio": 0.4791666666666667
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.025,
+          "y": 0.043478260869565216,
+          "width": 0.95,
+          "height": 0.9130434782608695
+        },
+        "cornerRadius": 0.04835526315789473,
+        "imageAspectRatio": 2.0869565217391304
+      }
+    },
+    {
+      "id": "ipad-pro-m5-13",
+      "name": "iPad Pro 13″ (M5)",
+      "defaultFrameID": "space-black",
+      "portraitDisplayPixelSize": {
+        "width": 2064,
+        "height": 2752
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.051304347826086956,
+          "y": 0.04133333333333333,
+          "width": 0.8973913043478261,
+          "height": 0.9173333333333333
+        },
+        "cornerRadius": 0.031492248062015504,
+        "imageAspectRatio": 0.7666666666666667
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.04133333333333333,
+          "y": 0.051304347826086956,
+          "width": 0.9173333333333333,
+          "height": 0.8973913043478261
+        },
+        "cornerRadius": 0.023619186046511628,
+        "imageAspectRatio": 1.3043478260869565
+      }
+    },
+    {
+      "id": "ipad-pro-m5-11",
+      "name": "iPad Pro 11″ (M5)",
+      "defaultFrameID": "space-black",
+      "portraitDisplayPixelSize": {
+        "width": 1668,
+        "height": 2420
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05638297872340425,
+          "y": 0.041666666666666664,
+          "width": 0.8872340425531915,
+          "height": 0.9166666666666666
+        },
+        "cornerRadius": 0.039568345323741004,
+        "imageAspectRatio": 0.7121212121212122
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.041666666666666664,
+          "y": 0.05638297872340425,
+          "width": 0.9166666666666666,
+          "height": 0.8872340425531915
+        },
+        "cornerRadius": 0.02727272727272727,
+        "imageAspectRatio": 1.4042553191489362
+      }
+    },
+    {
+      "id": "ipad-air-m4-13",
+      "name": "iPad Air 13″ (M4)",
+      "defaultFrameID": "space-gray",
+      "portraitDisplayPixelSize": {
+        "width": 2048,
+        "height": 2732
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.05478260869565217,
+          "y": 0.04161073825503356,
+          "width": 0.8904347826086957,
+          "height": 0.9167785234899329
+        },
+        "cornerRadius": 0.01708984375,
+        "imageAspectRatio": 0.7718120805369127
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.04161073825503356,
+          "y": 0.05478260869565217,
+          "width": 0.9167785234899329,
+          "height": 0.8904347826086957
+        },
+        "cornerRadius": 0.01281112737920937,
+        "imageAspectRatio": 1.2956521739130435
+      }
+    },
+    {
+      "id": "ipad-air-m4-11",
+      "name": "iPad Air 11″ (M4)",
+      "defaultFrameID": "space-gray",
+      "portraitDisplayPixelSize": {
+        "width": 1640,
+        "height": 2360
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.06842105263157895,
+          "y": 0.04961832061068702,
+          "width": 0.8631578947368421,
+          "height": 0.9007633587786259
+        },
+        "cornerRadius": 0.022560975609756097,
+        "imageAspectRatio": 0.7251908396946565
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.04961832061068702,
+          "y": 0.06842105263157895,
+          "width": 0.9007633587786259,
+          "height": 0.8631578947368421
+        },
+        "cornerRadius": 0.015677966101694914,
+        "imageAspectRatio": 1.3789473684210527
+      }
+    },
+    {
+      "id": "ipad-mini-a17-pro",
+      "name": "iPad mini (A17 Pro)",
+      "defaultFrameID": "space-gray",
+      "portraitDisplayPixelSize": {
+        "width": 1488,
+        "height": 2266
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.08202247191011236,
+          "y": 0.05568627450980392,
+          "width": 0.8359550561797753,
+          "height": 0.8886274509803922
+        },
+        "cornerRadius": 0.030913978494623656,
+        "imageAspectRatio": 0.6980392156862745
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.05568627450980392,
+          "y": 0.08202247191011236,
+          "width": 0.8886274509803922,
+          "height": 0.8359550561797753
+        },
+        "cornerRadius": 0.02030008826125331,
+        "imageAspectRatio": 1.4325842696629214
+      }
+    },
+    {
+      "id": "ipad-a16",
+      "name": "iPad (A16)",
+      "defaultFrameID": "silver",
+      "portraitDisplayPixelSize": {
+        "width": 1640,
+        "height": 2360
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.09803921568627451,
+          "y": 0.07246376811594203,
+          "width": 0.8034313725490196,
+          "height": 0.855072463768116
+        },
+        "cornerRadius": 0.03233679072605247,
+        "imageAspectRatio": 0.7391304347826086
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.07246376811594203,
+          "y": 0.09803921568627451,
+          "width": 0.855072463768116,
+          "height": 0.8034313725490196
+        },
+        "cornerRadius": 0.022457627118644068,
+        "imageAspectRatio": 1.3529411764705883
+      }
+    },
+    {
+      "id": "macbook-pro-16",
+      "name": "MacBook Pro 16″",
+      "defaultFrameID": "space-black",
+      "portraitDisplayPixelSize": {
+        "width": 3456,
+        "height": 2234
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.09436619718309859,
+          "y": 0.10669014084507042,
+          "width": 0.8112676056338028,
+          "height": 0.7866197183098591
+        },
+        "cornerRadius": 0.015,
+        "imageAspectRatio": 1.5
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.09436619718309859,
+          "y": 0.10669014084507042,
+          "width": 0.8112676056338028,
+          "height": 0.7866197183098591
+        },
+        "cornerRadius": 0.015,
+        "imageAspectRatio": 1.5
+      }
+    },
+    {
+      "id": "macos-window",
+      "name": "macOS 浮动窗口",
+      "defaultFrameID": "dark",
+      "portraitDisplayPixelSize": {
+        "width": 2560,
+        "height": 1600
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.03,
+          "y": 0.05,
+          "width": 0.94,
+          "height": 0.92
+        },
+        "cornerRadius": 0.022,
+        "imageAspectRatio": 1.6
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.03,
+          "y": 0.05,
+          "width": 0.94,
+          "height": 0.92
+        },
+        "cornerRadius": 0.022,
+        "imageAspectRatio": 1.6
+      }
+    },
+    {
+      "id": "apple-watch-series-11-46mm",
+      "name": "Apple Watch Series 11 46mm",
+      "defaultFrameID": "jet-black",
+      "portraitDisplayPixelSize": {
+        "width": 416,
+        "height": 496
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.12857142857142856,
+          "y": 0.22045454545454546,
+          "width": 0.7428571428571429,
+          "height": 0.5590909090909091
+        },
+        "cornerRadius": 0.22,
+        "imageAspectRatio": 0.6363636363636364
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.22045454545454546,
+          "y": 0.12857142857142856,
+          "width": 0.5590909090909091,
+          "height": 0.7428571428571429
+        },
+        "cornerRadius": 0.18601626016260162,
+        "imageAspectRatio": 1.5714285714285714
+      }
+    },
+    {
+      "id": "apple-watch-ultra-3-49mm",
+      "name": "Apple Watch Ultra 3 49mm",
+      "defaultFrameID": "natural-titanium",
+      "portraitDisplayPixelSize": {
+        "width": 422,
+        "height": 514
+      },
+      "portraitGeometry": {
+        "frame": {
+          "x": 0.14833333333333334,
+          "y": 0.23541666666666666,
+          "width": 0.7033333333333334,
+          "height": 0.5291666666666667
+        },
+        "cornerRadius": 0.16,
+        "imageAspectRatio": 0.625
+      },
+      "landscapeGeometry": {
+        "frame": {
+          "x": 0.23541666666666666,
+          "y": 0.14833333333333334,
+          "width": 0.5291666666666667,
+          "height": 0.7033333333333334
+        },
+        "cornerRadius": 0.13291338582677165,
+        "imageAspectRatio": 1.6
+      }
+    }
+  ],
+  "frames": [
+    {
+      "id": "black",
+      "deviceID": "iphone-18-pro-max",
+      "name": "黑色",
+      "color": "#27282C"
+    },
+    {
+      "id": "burgundy",
+      "deviceID": "iphone-18-pro-max",
+      "name": "勃艮第红",
+      "color": "#663747"
+    },
+    {
+      "id": "glacier",
+      "deviceID": "iphone-18-pro-max",
+      "name": "冰川蓝",
+      "color": "#B7C9D5"
+    },
+    {
+      "id": "silver",
+      "deviceID": "iphone-18-pro-max",
+      "name": "银色",
+      "color": "#D9D9D7"
+    },
+    {
+      "id": "black",
+      "deviceID": "iphone-18-pro",
+      "name": "黑色",
+      "color": "#27282C"
+    },
+    {
+      "id": "burgundy",
+      "deviceID": "iphone-18-pro",
+      "name": "勃艮第红",
+      "color": "#663747"
+    },
+    {
+      "id": "glacier",
+      "deviceID": "iphone-18-pro",
+      "name": "冰川蓝",
+      "color": "#B7C9D5"
+    },
+    {
+      "id": "silver",
+      "deviceID": "iphone-18-pro",
+      "name": "银色",
+      "color": "#D9D9D7"
+    },
+    {
+      "id": "night-sky",
+      "deviceID": "iphone-duo-inner-open",
+      "name": "夜空色",
+      "color": "#303B4B"
+    },
+    {
+      "id": "star-white",
+      "deviceID": "iphone-duo-inner-open",
+      "name": "星白色",
+      "color": "#E8E8E5"
+    },
+    {
+      "id": "night-sky",
+      "deviceID": "iphone-duo-outer-closed",
+      "name": "夜空色",
+      "color": "#303B4B"
+    },
+    {
+      "id": "star-white",
+      "deviceID": "iphone-duo-outer-closed",
+      "name": "星白色",
+      "color": "#E8E8E5"
+    },
+    {
+      "id": "night-sky",
+      "deviceID": "iphone-duo-outer-open",
+      "name": "夜空色",
+      "color": "#303B4B"
+    },
+    {
+      "id": "star-white",
+      "deviceID": "iphone-duo-outer-open",
+      "name": "星白色",
+      "color": "#E8E8E5"
+    },
+    {
+      "id": "cosmic-orange",
+      "deviceID": "iphone-17-pro-max",
+      "name": "宇宙橙",
+      "color": "#D66A2C"
+    },
+    {
+      "id": "deep-blue",
+      "deviceID": "iphone-17-pro-max",
+      "name": "深蓝",
+      "color": "#243D65"
+    },
+    {
+      "id": "silver",
+      "deviceID": "iphone-17-pro-max",
+      "name": "银色",
+      "color": "#D9D9D7"
+    },
+    {
+      "id": "cosmic-orange",
+      "deviceID": "iphone-17-pro",
+      "name": "宇宙橙",
+      "color": "#D66A2C"
+    },
+    {
+      "id": "deep-blue",
+      "deviceID": "iphone-17-pro",
+      "name": "深蓝",
+      "color": "#243D65"
+    },
+    {
+      "id": "silver",
+      "deviceID": "iphone-17-pro",
+      "name": "银色",
+      "color": "#D9D9D7"
+    },
+    {
+      "id": "mist-blue",
+      "deviceID": "iphone-17",
+      "name": "雾蓝",
+      "color": "#8FA8C8"
+    },
+    {
+      "id": "black",
+      "deviceID": "iphone-17",
+      "name": "黑色",
+      "color": "#27282C"
+    },
+    {
+      "id": "white",
+      "deviceID": "iphone-17",
+      "name": "白色",
+      "color": "#ECECE8"
+    },
+    {
+      "id": "lavender",
+      "deviceID": "iphone-17",
+      "name": "薰衣草紫",
+      "color": "#B7A7CF"
+    },
+    {
+      "id": "sage",
+      "deviceID": "iphone-17",
+      "name": "鼠尾草绿",
+      "color": "#9BA994"
+    },
+    {
+      "id": "cloud-white",
+      "deviceID": "iphone-air",
+      "name": "云白",
+      "color": "#E9E8E4"
+    },
+    {
+      "id": "sky-blue",
+      "deviceID": "iphone-air",
+      "name": "天蓝",
+      "color": "#AFC7DB"
+    },
+    {
+      "id": "light-gold",
+      "deviceID": "iphone-air",
+      "name": "浅金",
+      "color": "#D9CBAE"
+    },
+    {
+      "id": "space-black",
+      "deviceID": "iphone-air",
+      "name": "深空黑",
+      "color": "#303135"
+    },
+    {
+      "id": "space-black",
+      "deviceID": "ipad-pro-m5-13",
+      "name": "深空黑",
+      "color": "#322F32"
+    },
+    {
+      "id": "silver",
+      "deviceID": "ipad-pro-m5-13",
+      "name": "银色",
+      "color": "#898A8B"
+    },
+    {
+      "id": "space-black",
+      "deviceID": "ipad-pro-m5-11",
+      "name": "深空黑",
+      "color": "#2F2D30"
+    },
+    {
+      "id": "silver",
+      "deviceID": "ipad-pro-m5-11",
+      "name": "银色",
+      "color": "#858687"
+    },
+    {
+      "id": "space-gray",
+      "deviceID": "ipad-air-m4-13",
+      "name": "深空灰",
+      "color": "#575557"
+    },
+    {
+      "id": "starlight",
+      "deviceID": "ipad-air-m4-13",
+      "name": "星光色",
+      "color": "#A79E91"
+    },
+    {
+      "id": "purple",
+      "deviceID": "ipad-air-m4-13",
+      "name": "紫色",
+      "color": "#A297A8"
+    },
+    {
+      "id": "blue",
+      "deviceID": "ipad-air-m4-13",
+      "name": "蓝色",
+      "color": "#8BA7A9"
+    },
+    {
+      "id": "space-gray",
+      "deviceID": "ipad-air-m4-11",
+      "name": "深空灰",
+      "color": "#6D6C6E"
+    },
+    {
+      "id": "starlight",
+      "deviceID": "ipad-air-m4-11",
+      "name": "星光色",
+      "color": "#C4BDB3"
+    },
+    {
+      "id": "purple",
+      "deviceID": "ipad-air-m4-11",
+      "name": "紫色",
+      "color": "#C2BAC7"
+    },
+    {
+      "id": "blue",
+      "deviceID": "ipad-air-m4-11",
+      "name": "蓝色",
+      "color": "#9EB5B7"
+    },
+    {
+      "id": "space-gray",
+      "deviceID": "ipad-mini-a17-pro",
+      "name": "深空灰",
+      "color": "#585759"
+    },
+    {
+      "id": "starlight",
+      "deviceID": "ipad-mini-a17-pro",
+      "name": "星光色",
+      "color": "#BDB5AB"
+    },
+    {
+      "id": "purple",
+      "deviceID": "ipad-mini-a17-pro",
+      "name": "紫色",
+      "color": "#C2BAC7"
+    },
+    {
+      "id": "blue",
+      "deviceID": "ipad-mini-a17-pro",
+      "name": "蓝色",
+      "color": "#779294"
+    },
+    {
+      "id": "silver",
+      "deviceID": "ipad-a16",
+      "name": "银色",
+      "color": "#A0A1A2"
+    },
+    {
+      "id": "blue",
+      "deviceID": "ipad-a16",
+      "name": "蓝色",
+      "color": "#7290B4"
+    },
+    {
+      "id": "pink",
+      "deviceID": "ipad-a16",
+      "name": "粉色",
+      "color": "#F67084"
+    },
+    {
+      "id": "yellow",
+      "deviceID": "ipad-a16",
+      "name": "黄色",
+      "color": "#CEBA52"
+    },
+    {
+      "id": "space-black",
+      "deviceID": "macbook-pro-16",
+      "name": "深空黑",
+      "color": "#2E3033"
+    },
+    {
+      "id": "silver",
+      "deviceID": "macbook-pro-16",
+      "name": "银色",
+      "color": "#E2E4E6"
+    },
+    {
+      "id": "dark",
+      "deviceID": "macos-window",
+      "name": "深色窗口",
+      "color": "#1E1E24"
+    },
+    {
+      "id": "light",
+      "deviceID": "macos-window",
+      "name": "浅色窗口",
+      "color": "#F5F5F7"
+    },
+    {
+      "id": "jet-black",
+      "deviceID": "apple-watch-series-11-46mm",
+      "name": "亮黑色",
+      "color": "#1C1C1E"
+    },
+    {
+      "id": "silver",
+      "deviceID": "apple-watch-series-11-46mm",
+      "name": "银色",
+      "color": "#D8D8D6"
+    },
+    {
+      "id": "rose-gold",
+      "deviceID": "apple-watch-series-11-46mm",
+      "name": "玫瑰金",
+      "color": "#E5C4B1"
+    },
+    {
+      "id": "space-gray",
+      "deviceID": "apple-watch-series-11-46mm",
+      "name": "深空灰",
+      "color": "#6B6B70"
+    },
+    {
+      "id": "natural-titanium",
+      "deviceID": "apple-watch-series-11-46mm",
+      "name": "原色钛金属",
+      "color": "#A7A59E"
+    },
+    {
+      "id": "slate-titanium",
+      "deviceID": "apple-watch-series-11-46mm",
+      "name": "石板色钛金属",
+      "color": "#4A4A4E"
+    },
+    {
+      "id": "gold-titanium",
+      "deviceID": "apple-watch-series-11-46mm",
+      "name": "金色钛金属",
+      "color": "#C4A574"
+    },
+    {
+      "id": "natural-titanium",
+      "deviceID": "apple-watch-ultra-3-49mm",
+      "name": "原色钛金属",
+      "color": "#A7A59E"
+    },
+    {
+      "id": "black-titanium",
+      "deviceID": "apple-watch-ultra-3-49mm",
+      "name": "黑色钛金属",
+      "color": "#2C2C2A"
+    }
+  ]
+}

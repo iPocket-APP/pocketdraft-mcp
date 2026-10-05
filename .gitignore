@@ -1,0 +1,39 @@
+# Dependencies and generated build output
+node_modules/
+dist/
+coverage/
+.cache/
+*.tsbuildinfo
+*.tgz
+
+# Credentials and machine-specific configuration
+.env
+.env.*
+!.env.example
+.dev.vars*
+!.dev.vars.example
+.npmrc
+*.pem
+*.key
+.ssh/
+
+# User projects, attachments, exports and verification output
+exports/
+outputs/
+artifacts/
+workspace/
+workspaces/
+tmp/
+temp/
+*.pocketdraft
+*.log
+
+# Editor and operating-system metadata
+.DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+.codex/
+
+# Keep package-lock.json tracked for reproducible installs.
