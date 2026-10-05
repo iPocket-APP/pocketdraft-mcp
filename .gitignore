@@ -10,12 +10,32 @@ coverage/
 .env
 .env.*
 !.env.example
+.envrc
 .dev.vars*
 !.dev.vars.example
 .npmrc
+.netrc
+.git-credentials
+.mcp.json
+mcp.json
+credentials*.json
+secrets*.json
 *.pem
 *.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
 .ssh/
+.aws/
+.azure/
+.gcloud/
+.wrangler/
+.vercel/
 
 # User projects, attachments, exports and verification output
 exports/
@@ -23,10 +43,31 @@ outputs/
 artifacts/
 workspace/
 workspaces/
+attachments/
+uploads/
+screenshots/
+browser-profile/
 tmp/
 temp/
 *.pocketdraft
 *.log
+*.har
+*.heapsnapshot
+*.cpuprofile
+*.sqlite
+*.sqlite3
+*.db
+playwright-report/
+test-results/
+
+# Screenshot inputs belong in a private workspace, not the MCP source repository.
+*.[pP][nN][gG]
+*.[jJ][pP][gG]
+*.[jJ][pP][eE][gG]
+*.[wW][eE][bB][pP]
+*.[gG][iI][fF]
+*.[hH][eE][iI][cC]
+*.[hH][eE][iI][fF]
 
 # Editor and operating-system metadata
 .DS_Store
@@ -35,5 +76,7 @@ Thumbs.db
 .idea/
 .vscode/
 .codex/
+.claude/
+.cursor/
 
 # Keep package-lock.json tracked for reproducible installs.
