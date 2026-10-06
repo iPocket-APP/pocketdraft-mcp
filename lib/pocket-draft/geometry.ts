@@ -3,6 +3,7 @@ import { geometryFor } from "@/lib/pocket-draft/catalog"
 import {
   backgroundContent,
   clamp,
+  CANVAS_DIMENSION_RANGE,
   type Layer,
   type Point,
   type Project,
@@ -620,10 +621,14 @@ export function normalizedCustomSize(width: number, height: number): Size | null
   const pixelWidth = Math.round(width)
   const pixelHeight = Math.round(height)
   if (
-    pixelWidth < 64 ||
-    pixelHeight < 64 ||
-    pixelWidth > 4096 ||
-    pixelHeight > 4096
+    !Number.isFinite(width) ||
+    !Number.isFinite(height) ||
+    width > CANVAS_DIMENSION_RANGE.max ||
+    height > CANVAS_DIMENSION_RANGE.max ||
+    pixelWidth < CANVAS_DIMENSION_RANGE.min ||
+    pixelHeight < CANVAS_DIMENSION_RANGE.min ||
+    pixelWidth > CANVAS_DIMENSION_RANGE.max ||
+    pixelHeight > CANVAS_DIMENSION_RANGE.max
   ) {
     return null
   }

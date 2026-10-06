@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 // Shared by the installed package and the web editor. No Node/browser globals.
-export const LOCAL_MCP_VERSION = "4.0.0"
+export const LOCAL_MCP_VERSION = "4.1.0"
 export const BRIDGE_PROTOCOL_VERSION = 3
 export const BRIDGE_CAPABILITIES = [
   "asset-manifest",
@@ -9,6 +9,7 @@ export const BRIDGE_CAPABILITIES = [
   "operation-cancellation",
   "precision-editing",
   "guarded-history",
+  "app-store-assets",
 ] as const
 export const BRIDGE_TIMEOUT_MS = 60_000
 export const LOCAL_MCP_TOOLS = [

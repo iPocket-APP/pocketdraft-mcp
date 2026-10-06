@@ -11,7 +11,7 @@ in a directory of your choice:
 ```sh
 mkdir pocketdraft-agent
 cd pocketdraft-agent
-npm install https://github.com/iPocket-APP/pocketdraft-mcp/releases/download/v4.0.0/pocketdraft-mcp-4.0.0.tgz
+npm install https://github.com/iPocket-APP/pocketdraft-mcp/releases/download/v4.1.0/pocketdraft-mcp-4.1.0.tgz
 ```
 
 Or build directly from source:
@@ -25,7 +25,7 @@ npm pack
 ```
 
 `npm ci` runs the `prepare` script to build `dist/index.mjs`. The generated tarball
-can be installed elsewhere with `npm install /absolute/path/pocketdraft-mcp-4.0.0.tgz`.
+can be installed elsewhere with `npm install /absolute/path/pocketdraft-mcp-4.1.0.tgz`.
 This release is distributed through GitHub; it is not an npm registry publication.
 
 Configure your MCP client using absolute paths:
@@ -52,7 +52,7 @@ For a development editor, add `--origin http://localhost:3010`. Only that exact 
 
 ## Version compatibility
 
-Version 4 uses bridge protocol 3. Update the editor and this package together. Older editors/packages are rejected during pairing, before any project changes. Document/package formats remain unchanged. For local development use the matching editor checkout with `--origin http://localhost:3010`. The public website is deployed separately; publishing this repository or installing this package does not update the website. If pairing reports a version mismatch, the editor must be upgraded to protocol 3.
+Version 4.1 uses bridge protocol 3 and requires the `app-store-assets` capability. Update the editor and this package together. Older editors/packages are rejected during pairing, before any project changes. Document/package formats remain unchanged. For local development use the matching editor checkout with `--origin http://localhost:3010`. The public website is deployed separately; publishing this repository or installing this package does not update the website. If pairing reports a version mismatch, update both the editor and package to a version with the `app-store-assets` capability.
 
 ## Tools
 
@@ -122,6 +122,16 @@ New images support PNG/JPEG/GIF/WebP, up to 8 MiB each and 32 MiB per call. Edit
 The bridge binds only to 127.0.0.1 and requires the configured Origin, a random bearer token and session ID. File reads resolve workspace boundaries, reject directories and enforce bounded reads. Windows path containment is covered by tests; native Windows browser acceptance still needs platform testing.
 
 Set `POCKETDRAFT_MCP_DEBUG=1` in your MCP client environment for JSON diagnostics on stderr (tool, duration and error code only). stdout remains MCP protocol output. The editor queue is bounded; local catalog/status reads bypass it. Late operation replies do not disconnect the session. Reloading/closing the editor still requires explicit re-pairing.
+
+## App Store creative assets
+
+Use `pocketdraft_list_catalog` with `entity: "aspects"` to discover `appStoreHeader`, `appStoreSearch`, `appStoreUniversal`, `appStoreEventCard`, and `appStoreEventDetails`. Each entry includes the allowed dimensions, formats, opacity requirements, official artwork safe area when available, and Apple source links. Canvas settings accept edges from 64 to 5244 pixels. Existing larger panorama projects can still be read.
+
+Create with `projects.create` and an asset aspect, or change an existing canvas with `canvases.setAspect`. `templates.apply` supports `asset-blank-<aspect>` and `asset-hero-<aspect>` (header/search/universal). `templates.applySet` with `asset-event-pair` appends two matching image-only event canvases; it never overwrites existing canvases and needs two available slots. Hero and event-pair templates reuse the active canvas's image when available; blank templates clear the current canvas.
+
+Header (3840×1646) and universal (5244×2950) exports require PNG at their exact size. Search (3:2), event card (16:9), and event detail (9:16) support PNG/JPEG within the catalog's resolution range; default canvases offer scales 0.5 and 1. Header/search/universal PNGs are encoded as RGB with no alpha channel. Full-image export rejects transparency for these placements, as well as cropped regions, debug bounds and panorama slices. Preview supports cropped regions without applying upload constraints. `pocketdraft_validate_project` reports dimensions as errors and text/device safe-area overflow as warnings. Successful `pocketdraft_export` results also include a `warnings` array for the selected canvases; composition warnings do not block file creation.
+
+The browser and MCP use original images for final export; previews use bounded bitmaps. Files above the existing 32 MiB bridge export limit require the browser's local download. Fixed-size artwork is never silently downscaled. Project schema 2 and package version 1 remain unchanged. No App Store Connect upload or publication is performed.
 
 ## Development and release checks
 

@@ -8,6 +8,7 @@ import {
   MAXIMUM_CANVAS_COUNT,
   MAXIMUM_DEVICE_COPIES,
   MAXIMUM_LAYER_COUNT,
+  CANVAS_DIMENSION_RANGE,
 } from "@/lib/pocket-draft/models"
 
 import {
@@ -32,6 +33,7 @@ export const POCKETDRAFT_SCHEMA_V1 = {
     canvases: MAXIMUM_CANVAS_COUNT,
     layers: MAXIMUM_LAYER_COUNT,
     deviceCopies: MAXIMUM_DEVICE_COPIES,
+    canvasDimensions: CANVAS_DIMENSION_RANGE,
     maxBatchCommands: 50,
     maxAssetBytes: MAX_ASSET_BYTES,
     maxPackageAssetBytes: MAX_PACKAGE_ASSET_BYTES,
@@ -64,7 +66,7 @@ export const POCKETDRAFT_SCHEMA_V1 = {
       "templates.apply":
         "Applies a single-layout template to canvasId or the active canvas.",
       "templates.applySet":
-        "Requires a set template (id starting with set- or a mac sequence). Creates missing canvases up to the set length.",
+        "Requires a set template. Screenshot sets create missing canvases; asset-event-pair appends two new canvases and requires two free slots.",
       "assets.attach":
         "target: screenshot (default), image, or background. url may be https or a data URL.",
       "layers.update":

@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { assertAssetExport } from "./app-store-assets"
 import { validateProject } from "./mcp/validation"
 import { decodeImageDataUrl, sniffImageMime } from "./mcp/image-bytes"
 import { MAX_PACKAGE_ASSET_BYTES } from "./mcp/protocol"
@@ -9,8 +10,8 @@ import {
   exportProjectPackage,
   assetAdditions,
 } from "./storage"
-import { bitmapFromBlob, bitmapFromUrl, type ImageSource } from "./assets"
-import { frameAssetPath, frameCacheKey, isVectorDevice } from "./catalog"
+import { bitmapFromBlob, type ImageSource } from "./assets"
+import { loadCanvasRenderImages } from "./render-assets"
 import { ensurePocketDraftFonts } from "./bundled-fonts"
 import { renderCanvasBlob, renderCanvasSlicesBlob } from "./renderer"
 import {
@@ -208,42 +209,13 @@ export async function renderBridgeProject(
   const images: Record<string, ImageSource> = Object.create(null)
   try {
     await abortable(ensurePocketDraftFonts(), signal)
-    for (const ref of referencedAssets({ ...project, canvases: [canvas] })) {
-      if (suppliedImages[ref]) {
-        images[ref] = suppliedImages[ref]
-        continue
-      }
-      const blob = await getAsset(ref)
-      if (!blob) throw new Error(`missing_asset: ${ref}`)
-      images[ref] = await ownedCache.get(
-        `asset:${ref}:${options.preview}`,
-        () => bitmapFromBlob(blob, options.preview ? 2048 : Infinity),
-        signal
-      )
-    }
-    for (const layer of canvas.layers) {
-      const content = layer.content
-      if (content.kind !== "device" || isVectorDevice(content.deviceId))
-        continue
-      const key = frameCacheKey(
-        content.deviceId,
-        content.frameId,
-        content.orientation
-      )
-      images[key] ??= await ownedCache.get(
-        `frame:${key}`,
-        () =>
-          bitmapFromUrl(
-            frameAssetPath(
-              content.deviceId,
-              content.frameId,
-              content.orientation
-            ),
-            signal
-          ),
-        signal
-      )
-    }
+    const loaded = await loadCanvasRenderImages(canvas, {
+      preview: options.preview,
+      signal,
+      cache: ownedCache,
+      suppliedImages,
+    })
+    Object.assign(images, loaded.images)
     signal?.throwIfAborted()
     const region = options.region ?? { x: 0, y: 0, ...canvas.canvasLogicalSize }
     const scale =
@@ -253,12 +225,15 @@ export async function renderBridgeProject(
         : 1)
     const settings = {
       scale,
+      preview: options.preview,
       region: options.region,
       showBounds: options.showBounds,
       format: options.preview ? ("jpeg" as const) : options.format,
       quality: options.quality,
       transparentBackground: options.transparentBackground,
     }
+    if (!options.preview)
+      assertAssetExport(canvas, { ...settings, slices: options.slices })
     const blobs = await abortable(
       options.slices && !options.preview
         ? renderCanvasSlicesBlob(canvas, images, settings)
@@ -266,7 +241,9 @@ export async function renderBridgeProject(
       signal
     )
     if (blobs.reduce((total, blob) => total + blob.size, 0) > 32 * 1024 * 1024)
-      throw new Error("export_too_large: reduce the scale")
+      throw new Error(
+        "export_too_large: use the browser download for files over 32 MiB; fixed-size creative assets cannot be downscaled"
+      )
     const files = []
     for (const [index, blob] of blobs.entries())
       files.push({

@@ -1,3 +1,8 @@
+import {
+  assetSafeArea,
+  appStoreAssetSpec,
+  assetSizeIsValid,
+} from "./app-store-assets"
 import { z } from "zod"
 import {
   displayedFrame,
@@ -151,10 +156,38 @@ export function projectIssues(
         assetRef: ref,
         message: "Referenced image is missing.",
       })
-  for (const canvas of project.canvases)
+  for (const canvas of project.canvases) {
+    const spec = appStoreAssetSpec(canvas.canvasAspect)
+    if (spec && !assetSizeIsValid(spec, canvas.canvasLogicalSize))
+      issues.push({
+        code: "asset_dimensions",
+        severity: "error",
+        canvasId: canvas.id,
+        message:
+          "Canvas dimensions do not match the App Store asset specification.",
+      })
     for (const layer of canvas.layers) {
       if (layer.content.kind === "background") continue
       const { bounds } = layerGeometry(layer, canvas)
+      const safe = assetSafeArea(canvas)
+      if (
+        safe &&
+        layer.isVisible &&
+        layer.opacity > 0 &&
+        ["text", "device"].includes(layer.content.kind) &&
+        (bounds.x < safe.x ||
+          bounds.y < safe.y ||
+          bounds.x + bounds.width > safe.x + safe.width ||
+          bounds.y + bounds.height > safe.y + safe.height)
+      )
+        issues.push({
+          code: "asset_safe_area",
+          severity: "warning",
+          canvasId: canvas.id,
+          layerId: layer.id,
+          message:
+            "Text or device extends outside Apple's artwork safe area. Review the placement preview; intentional bleed is allowed.",
+        })
       if (
         layer.isVisible &&
         (bounds.x < -0.5 ||
@@ -218,5 +251,6 @@ export function projectIssues(
         }
       }
     }
+  }
   return issues
 }

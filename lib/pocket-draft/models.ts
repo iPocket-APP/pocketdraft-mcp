@@ -1,3 +1,5 @@
+import { APP_STORE_ASSETS, type AppStoreAssetAspect } from "./app-store-assets"
+
 export type Point = { x: number; y: number }
 export type Size = { width: number; height: number }
 export type Rect = { x: number; y: number; width: number; height: number }
@@ -10,6 +12,7 @@ export type LayerTransform = {
 }
 
 export type CanvasAspect =
+  | AppStoreAssetAspect
   | "square"
   | "portrait45"
   | "portrait34"
@@ -136,25 +139,32 @@ export const MAXIMUM_DEVICE_COPIES = 4
 export const MAXIMUM_CANVAS_COUNT = 10
 export const SCALE_RANGE = { min: 0.1, max: 8 }
 export const SCREENSHOT_ZOOM_RANGE = { min: 1, max: 3 }
-export const CANVAS_DIMENSION_RANGE = { min: 64, max: 4096 }
+export const CANVAS_DIMENSION_RANGE = { min: 64, max: 5244 }
 export const MAX_EXPORT_EDGE = 8192
 export const MAX_EXPORT_PIXELS = 8192 * 8192
 export const PREVIEW_IMAGE_MAX_EDGE = 2048
 
-export const CANVAS_ASPECT_SIZES: Record<Exclude<CanvasAspect, "custom">, Size> =
-  {
-    square: { width: 1080, height: 1080 },
-    portrait45: { width: 1080, height: 1350 },
-    portrait34: { width: 1080, height: 1440 },
-    portrait23: { width: 1080, height: 1620 },
-    story916: { width: 1080, height: 1920 },
-    landscape43: { width: 1440, height: 1080 },
-    landscape32: { width: 1620, height: 1080 },
-    landscape169: { width: 1920, height: 1080 },
-    appStore69: { width: 1320, height: 2868 },
-    appStore65: { width: 1284, height: 2778 },
-    macAppStore: { width: 2880, height: 1800 },
-  }
+export const CANVAS_ASPECT_SIZES: Record<
+  Exclude<CanvasAspect, "custom">,
+  Size
+> = {
+  square: { width: 1080, height: 1080 },
+  portrait45: { width: 1080, height: 1350 },
+  portrait34: { width: 1080, height: 1440 },
+  portrait23: { width: 1080, height: 1620 },
+  story916: { width: 1080, height: 1920 },
+  landscape43: { width: 1440, height: 1080 },
+  landscape32: { width: 1620, height: 1080 },
+  landscape169: { width: 1920, height: 1080 },
+  appStore69: { width: 1320, height: 2868 },
+  appStore65: { width: 1284, height: 2778 },
+  macAppStore: { width: 2880, height: 1800 },
+  appStoreHeader: APP_STORE_ASSETS.appStoreHeader.size,
+  appStoreSearch: APP_STORE_ASSETS.appStoreSearch.size,
+  appStoreUniversal: APP_STORE_ASSETS.appStoreUniversal.size,
+  appStoreEventCard: APP_STORE_ASSETS.appStoreEventCard.size,
+  appStoreEventDetails: APP_STORE_ASSETS.appStoreEventDetails.size,
+}
 
 export const CANVAS_ASPECT_LABELS: Record<CanvasAspect, string> = {
   square: "1:1",
@@ -168,6 +178,11 @@ export const CANVAS_ASPECT_LABELS: Record<CanvasAspect, string> = {
   appStore69: "6.9″",
   appStore65: "6.5″",
   macAppStore: "Mac (16:10)",
+  appStoreHeader: "App Store Header",
+  appStoreSearch: "App Store Search",
+  appStoreUniversal: "App Store Universal",
+  appStoreEventCard: "In-App Event Card",
+  appStoreEventDetails: "In-App Event Details",
   custom: "Custom",
 }
 
@@ -264,7 +279,9 @@ export function createBlankCanvas(
   }
 }
 
-export function createBlankProject(aspect: CanvasAspect = "portrait45"): Project {
+export function createBlankProject(
+  aspect: CanvasAspect = "portrait45"
+): Project {
   const canvas = createBlankCanvas(aspect, "Canvas 1")
   return {
     id: createId(),
@@ -432,7 +449,9 @@ export function isImage(layer: Layer): boolean {
   return layer.content.kind === "image"
 }
 
-export function backgroundLayer(project: Project | ProjectCanvas): Layer | undefined {
+export function backgroundLayer(
+  project: Project | ProjectCanvas
+): Layer | undefined {
   return project.layers[0]
 }
 
@@ -493,9 +512,7 @@ export function uniqueLayerName(
   proposed: string,
   existing: Iterable<string>
 ): string {
-  const names = new Set(
-    [...existing].map((name) => name.trim().toLowerCase())
-  )
+  const names = new Set([...existing].map((name) => name.trim().toLowerCase()))
   const base = proposed.trim() || "Layer"
   if (!names.has(base.toLowerCase())) return base
   let index = 2
@@ -517,7 +534,9 @@ export function mapLayer(
       ),
     }
   })
-  const activeCanvas = nextCanvases.find((c) => c.id === project.activeCanvasId)!
+  const activeCanvas = nextCanvases.find(
+    (c) => c.id === project.activeCanvasId
+  )!
   return {
     ...project,
     canvases: nextCanvases,

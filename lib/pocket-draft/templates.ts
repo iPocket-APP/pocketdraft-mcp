@@ -1,9 +1,9 @@
 import { DEFAULT_DEVICE_ID, defaultFrameId } from "@/lib/pocket-draft/catalog"
+import { ASSET_TEMPLATES, applyAssetTemplate, appendEventPair } from "./asset-templates"
 import { baseSize } from "@/lib/pocket-draft/geometry"
 import {
   APP_STORE_DISPLAYS,
   composeGoldieLayout,
-  DEFAULT_GOLDIE_THEME_ID,
   getGoldieTheme,
   GOLDIE_BACKGROUND,
   GOLDIE_DEVICE_PADDING,
@@ -13,7 +13,6 @@ import {
   GOLDIE_SET_I18N,
   GOLDIE_SET_KEYS,
   GOLDIE_SETS,
-  GOLDIE_THEMES,
   goldieCanvasForLayout,
   goldieNeedsSecondCapture,
   isGoldieLayoutKey,
@@ -52,6 +51,7 @@ export type TemplateTextSlot = {
 }
 
 export type SnapFrameTemplate = {
+  creative?: "blank" | "hero" | "eventSet"
   id: string
   nameZh: string
   nameEn: string
@@ -326,6 +326,7 @@ export const MAC_TEMPLATES: SnapFrameTemplate[] = [
 ]
 
 export const TEMPLATES: SnapFrameTemplate[] = [
+  ...ASSET_TEMPLATES,
   ...SET_TEMPLATES,
   ...LAYOUT_TEMPLATES,
   ...MAC_TEMPLATES,
@@ -585,6 +586,7 @@ export function applyTemplateToCanvas(
     secondaryScreenshotRef?: string | null
   }
 ): ProjectCanvas {
+  if (template.creative) return applyAssetTemplate(canvas, template, locale)
   if (template.platform === "macos" || template.macLayoutKey) {
     return applyMacTemplateToCanvas(canvas, template, locale, options)
   }
@@ -602,6 +604,7 @@ export function applyTemplateSetToProject(
   display: AppStoreDisplay = "69",
   themeId?: string
 ): Project {
+  if (template.creative === "eventSet") return appendEventPair(project, locale)
   const isZh = locale.startsWith("zh")
 
   // 1. 处理 Mac 成套序列

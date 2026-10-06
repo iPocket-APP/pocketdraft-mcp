@@ -312,6 +312,41 @@ describe("built stdio package", () => {
     const output = (await exportCall).structuredContent.files as string[]
     expect(await readFile(output[0])).toEqual(Buffer.from(png, "base64"))
   })
+  it("returns composition warnings for the exported asset without blocking file creation", async () => {
+    project = createBlankProject("appStoreUniversal")
+    const warning = {
+      code: "asset_safe_area",
+      severity: "warning",
+      canvasId: project.activeCanvasId,
+      message: "Text outside safe area",
+    }
+    const exported = client.tool("pocketdraft_export", {
+      projectId: project.id,
+    })
+    await snapshot()
+    const validation = await post("poll")
+    expect(validation.method).toBe("evaluate")
+    await post("reply", {
+      id: validation.id,
+      result: {
+        project,
+        issues: [warning, { ...warning, canvasId: "unselected" }],
+      },
+    })
+    const render = await post("poll")
+    expect(render.method).toBe("render")
+    const png =
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+    await post("reply", {
+      id: render.id,
+      result: { files: [{ name: "image", mimeType: "image/png", data: png }] },
+    })
+    const result = (await exported).structuredContent
+    expect(result).toMatchObject({ ok: true, warnings: [warning] })
+    expect(await readFile((result.files as string[])[0])).toEqual(
+      Buffer.from(png, "base64")
+    )
+  })
   it("dryRun and same-value edits validate without applying or creating history", async () => {
     const before = JSON.stringify(project)
     const dry = client.tool("pocketdraft_batch_mutation", {

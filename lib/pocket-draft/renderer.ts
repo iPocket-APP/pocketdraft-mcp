@@ -28,6 +28,9 @@ import {
   type TextContent,
 } from "@/lib/pocket-draft/models"
 
+import { appStoreAssetSpec, assertAssetExport } from "./app-store-assets"
+import { encodeOpaquePng, pngInfo } from "./opaque-png"
+
 export type RenderImages = Record<string, ImageSource | undefined>
 
 export type DrawOptions = {
@@ -37,6 +40,7 @@ export type DrawOptions = {
   transparentBackground?: boolean
   omittedLayerId?: string | null
   previewQuality?: boolean
+  opaqueBackground?: boolean
 }
 
 function roundRect(
@@ -53,7 +57,7 @@ function roundRect(
     ctx.closePath()
     return
   }
-  const r = typeof radius === "number" ? radius : radius[0] ?? 0
+  const r = typeof radius === "number" ? radius : (radius[0] ?? 0)
   const clr = Math.max(0, Math.min(r, width / 2, height / 2))
   ctx.beginPath()
   ctx.moveTo(x + clr, y)
@@ -64,12 +68,12 @@ function roundRect(
   ctx.closePath()
 }
 
-function fillStops(
-  gradient: CanvasGradient,
-  stops: GradientStop[]
-) {
+function fillStops(gradient: CanvasGradient, stops: GradientStop[]) {
   for (const stop of stops) {
-    gradient.addColorStop(Math.min(1, Math.max(0, stop.location)), colorToCss(stop.color))
+    gradient.addColorStop(
+      Math.min(1, Math.max(0, stop.location)),
+      colorToCss(stop.color)
+    )
   }
 }
 
@@ -124,7 +128,10 @@ function drawFill(
         break
       }
       const source = imageSize(image)
-      const scale = Math.max(size.width / source.width, size.height / source.height)
+      const scale = Math.max(
+        size.width / source.width,
+        size.height / source.height
+      )
       const drawW = source.width * scale
       const drawH = source.height * scale
       const dx = (size.width - drawW) / 2
@@ -182,7 +189,9 @@ function drawDevice(
   const isMacWindow = content.deviceId === "macos-window"
 
   const frameImage =
-    images[frameCacheKey(content.deviceId, content.frameId, content.orientation)]
+    images[
+      frameCacheKey(content.deviceId, content.frameId, content.orientation)
+    ]
 
   if (content.shadowIntensity > 0) {
     ctx.save()
@@ -212,7 +221,9 @@ function drawDevice(
     const source = imageSize(shot)
     const filled = aspectFillSize(source, screen, content.screenshotZoom)
     const dx =
-      screen.x + (screen.width - filled.width) / 2 + content.screenshotOffset.x * screen.width
+      screen.x +
+      (screen.width - filled.width) / 2 +
+      content.screenshotOffset.x * screen.width
     const dy =
       screen.y +
       (screen.height - filled.height) / 2 +
@@ -313,8 +324,6 @@ function drawMacosWindowFrame(
   ctx.stroke()
   ctx.restore()
 }
-
-
 
 function drawText(
   ctx: CanvasRenderingContext2D,
@@ -430,9 +439,14 @@ export function drawProject(
   options: DrawOptions
 ) {
   const canvasSize = { width: options.width, height: options.height }
-  const displayScale = options.width / Math.max(target.canvasLogicalSize.width, 1)
+  const displayScale =
+    options.width / Math.max(target.canvasLogicalSize.width, 1)
   ctx.save()
   ctx.clearRect(0, 0, options.width, options.height)
+  if (options.opaqueBackground) {
+    ctx.fillStyle = "#ffffff"
+    ctx.fillRect(0, 0, options.width, options.height)
+  }
   ctx.imageSmoothingEnabled = true
   ctx.imageSmoothingQuality = "high"
 
@@ -471,27 +485,40 @@ export async function renderCanvasBlob(
     transparentBackground?: boolean
     region?: Rect
     showBounds?: boolean
+    preview?: boolean
   }
 ): Promise<Blob> {
+  if (!options.preview) assertAssetExport(canvas, options)
+  const spec = appStoreAssetSpec(canvas.canvasAspect)
+  const opaque = options.format === "jpeg" || !options.transparentBackground
   const region = options.region ?? { x: 0, y: 0, ...canvas.canvasLogicalSize }
-  if (region.x < 0 || region.y < 0 || region.width <= 0 || region.height <= 0 || region.x + region.width > canvas.canvasLogicalSize.width || region.y + region.height > canvas.canvasLogicalSize.height) throw new Error("invalid_region: region must be inside the canvas")
+  if (
+    region.x < 0 ||
+    region.y < 0 ||
+    region.width <= 0 ||
+    region.height <= 0 ||
+    region.x + region.width > canvas.canvasLogicalSize.width ||
+    region.y + region.height > canvas.canvasLogicalSize.height
+  )
+    throw new Error("invalid_region: region must be inside the canvas")
   const dims = outputDimensions(region, options.scale)
   if (!dims) throw new Error("Invalid export size")
   const htmlCanvas = document.createElement("canvas")
   htmlCanvas.width = dims.width
   htmlCanvas.height = dims.height
-  const ctx = htmlCanvas.getContext("2d")
+  const ctx = htmlCanvas.getContext("2d", {
+    alpha: !opaque,
+    colorSpace: "srgb",
+  })
   if (!ctx) throw new Error("Canvas unsupported")
-  if (options.format === "jpeg" || !options.transparentBackground) {
-    ctx.fillStyle = "#ffffff"
-    ctx.fillRect(0, 0, dims.width, dims.height)
-  }
-  ctx.translate(-region.x * options.scale, -region.y * options.scale)
+  ctx.translate(-region.x * dims.scale, -region.y * dims.scale)
   drawProject(ctx, canvas, images, {
-    width: canvas.canvasLogicalSize.width * options.scale,
-    height: canvas.canvasLogicalSize.height * options.scale,
+    width: canvas.canvasLogicalSize.width * dims.scale,
+    height: canvas.canvasLogicalSize.height * dims.scale,
     isExport: true,
-    transparentBackground: options.format === "png" && options.transparentBackground,
+    transparentBackground:
+      options.format === "png" && options.transparentBackground,
+    opaqueBackground: opaque,
   })
   if (options.showBounds) {
     ctx.save()
@@ -500,17 +527,36 @@ export async function renderCanvasBlob(
     ctx.lineWidth = 1 / options.scale
     for (const layer of canvas.layers) {
       if (!layer.isVisible || layer.content.kind === "background") continue
-      const bounds = rotatedBoundingBox(displayedFrame(layer, canvas, canvas.canvasLogicalSize), layer.transform.rotation)
+      const bounds = rotatedBoundingBox(
+        displayedFrame(layer, canvas, canvas.canvasLogicalSize),
+        layer.transform.rotation
+      )
       ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height)
     }
     ctx.restore()
   }
   const mime = options.format === "jpeg" ? "image/jpeg" : "image/png"
-  const quality = options.format === "jpeg" ? (options.quality ?? 0.92) : undefined
-  const blob = await new Promise<Blob | null>((resolve) =>
-    htmlCanvas.toBlob(resolve, mime, quality)
-  )
+  const quality =
+    options.format === "jpeg" ? (options.quality ?? 0.92) : undefined
+  const blob =
+    !options.preview && spec?.opaque && options.format === "png"
+      ? await encodeOpaquePng(ctx.getImageData(0, 0, dims.width, dims.height))
+      : await new Promise<Blob | null>((resolve) =>
+          htmlCanvas.toBlob(resolve, mime, quality)
+        )
   if (!blob) throw new Error("Export failed")
+  if (!options.preview && spec?.maxBytes && blob.size > spec.maxBytes)
+    throw new Error("asset_file_size: image exceeds 500 MB")
+  if (!options.preview && spec?.opaque && options.format === "png") {
+    const info = pngInfo(new Uint8Array(await blob.arrayBuffer()))
+    if (
+      info.colorType !== 2 ||
+      info.transparency ||
+      info.width !== dims.width ||
+      info.height !== dims.height
+    )
+      throw new Error("asset_encoding: RGB PNG verification failed")
+  }
   return blob
 }
 
@@ -527,6 +573,7 @@ export async function renderCanvasSlicesBlob(
     transparentBackground?: boolean
   }
 ): Promise<[Blob, Blob]> {
+  assertAssetExport(canvas, { ...options, slices: true })
   const dims = outputDimensions(canvas.canvasLogicalSize, options.scale)
   if (!dims) throw new Error("Invalid export size")
 
@@ -545,12 +592,14 @@ export async function renderCanvasSlicesBlob(
     width: dims.width,
     height: dims.height,
     isExport: true,
-    transparentBackground: options.format === "png" && options.transparentBackground,
+    transparentBackground:
+      options.format === "png" && options.transparentBackground,
   })
 
   const halfWidth = Math.round(dims.width / 2)
   const mime = options.format === "jpeg" ? "image/jpeg" : "image/png"
-  const quality = options.format === "jpeg" ? (options.quality ?? 0.92) : undefined
+  const quality =
+    options.format === "jpeg" ? (options.quality ?? 0.92) : undefined
 
   async function sliceToBlob(sx: number, sw: number): Promise<Blob> {
     const sliceCanvas = document.createElement("canvas")

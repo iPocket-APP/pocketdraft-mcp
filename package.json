@@ -1,6 +1,6 @@
 {
   "name": "pocketdraft-mcp",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Local MCP bridge for the PocketDraft browser editor",
   "type": "module",
   "engines": {

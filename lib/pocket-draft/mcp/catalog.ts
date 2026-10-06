@@ -16,6 +16,12 @@ import {
 } from "@/lib/pocket-draft/models"
 import { TEMPLATES } from "@/lib/pocket-draft/templates"
 
+import {
+  appStoreAssetSpec,
+  APP_STORE_ASSET_SOURCE,
+  APP_STORE_GUIDE_SOURCE,
+} from "../app-store-assets"
+
 import { PocketDraftMcpError } from "@/lib/pocket-draft/mcp/errors"
 import {
   CATALOG_ENTITIES,
@@ -67,6 +73,7 @@ function projectTemplate(template: (typeof TEMPLATES)[number]) {
     platform: template.platform ?? "ios",
     deviceCount: template.deviceCount,
     canvasAspect: template.canvasAspect,
+    creative: template.creative ?? null,
     layoutKey: template.layoutKey ?? null,
     macLayoutKey: template.macLayoutKey ?? null,
     sequence: template.sequence ?? template.macSequence ?? null,
@@ -110,6 +117,7 @@ export function listCatalog(
           template.nameEn,
           template.layoutKey,
           template.macLayoutKey,
+          template.creative ? "App Store 宣传素材 app-store-assets" : undefined,
         ])
       }).map(projectTemplate)
     case "fonts":
@@ -131,12 +139,27 @@ export function listCatalog(
     case "aspects":
       return (Object.keys(CANVAS_ASPECT_LABELS) as CanvasAspect[])
         .filter((aspect) =>
-          matchesQuery(options?.query, [aspect, CANVAS_ASPECT_LABELS[aspect]])
+          matchesQuery(options?.query, [
+            aspect,
+            CANVAS_ASPECT_LABELS[aspect],
+            appStoreAssetSpec(aspect)?.nameZh,
+            appStoreAssetSpec(aspect)?.nameEn,
+            appStoreAssetSpec(aspect)
+              ? "App Store 宣传素材 app-store-assets"
+              : undefined,
+          ])
         )
         .map((aspect) => ({
           id: aspect,
           label: CANVAS_ASPECT_LABELS[aspect],
           size: aspect === "custom" ? null : CANVAS_ASPECT_SIZES[aspect],
+          ...(appStoreAssetSpec(aspect)
+            ? {
+                assetSpec: appStoreAssetSpec(aspect),
+                source: APP_STORE_ASSET_SOURCE,
+                guideSource: APP_STORE_GUIDE_SOURCE,
+              }
+            : {}),
         }))
     case "themes":
       return Object.values(GOLDIE_THEMES)
@@ -230,6 +253,13 @@ export function getCatalog(entity: CatalogEntity, id: string): unknown {
         id: aspect,
         label: CANVAS_ASPECT_LABELS[aspect],
         size: aspect === "custom" ? null : CANVAS_ASPECT_SIZES[aspect],
+        ...(appStoreAssetSpec(aspect)
+          ? {
+              assetSpec: appStoreAssetSpec(aspect),
+              source: APP_STORE_ASSET_SOURCE,
+              guideSource: APP_STORE_GUIDE_SOURCE,
+            }
+          : {}),
       }
     }
     case "themes": {

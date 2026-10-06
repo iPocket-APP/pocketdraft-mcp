@@ -23,6 +23,7 @@ import {
   syncLayout,
 } from "../lib/pocket-draft/mcp/precision"
 import { inspectionOptionsSchema } from "../lib/pocket-draft/inspection"
+import { appStoreAssetSpec } from "../lib/pocket-draft/app-store-assets"
 import { inspectDocument } from "../lib/pocket-draft/mcp/document"
 import {
   validateProject,
@@ -637,6 +638,7 @@ export function createLocalMcpServer(
         revision: revisionSchema,
         files: z.array(z.string()),
         manifest: z.array(record),
+        warnings: z.array(record),
       }),
     },
     (
@@ -678,6 +680,31 @@ export function createLocalMcpServer(
           (allCanvases && kind === "image"
             ? current.project.canvases.map((canvas) => canvas.id)
             : [params.canvasId])
+        const selectedCanvases = current.project.canvases.filter((canvas) =>
+          canvasIds.some(
+            (id) => canvas.id === (id ?? current.project.activeCanvasId)
+          )
+        )
+        const warnings =
+          kind === "image" &&
+          selectedCanvases.some((canvas) =>
+            appStoreAssetSpec(canvas.canvasAspect)
+          )
+            ? ((
+                await evaluate(
+                  current,
+                  { schemaVersion: 1, project: current.project, assets: {} },
+                  { operation: "validate" },
+                  signal
+                )
+              ).issues?.filter(
+                (issue) =>
+                  issue.code === "asset_safe_area" &&
+                  selectedCanvases.some(
+                    (canvas) => canvas.id === issue.canvasId
+                  )
+              ) ?? [])
+            : []
         for (const canvasId of canvasIds) {
           const rendered = filesSchema.parse(
             await bridge.request(
@@ -702,13 +729,16 @@ export function createLocalMcpServer(
             outputs.reduce((size, file) => size + file.data.length, 0) >
             MAX_REQUEST_BYTES
           )
-            throw new Error("export_too_large: export fewer canvases")
+            throw new Error(
+              "export_too_large: download in the browser or export fewer canvases; fixed-size artwork cannot be downscaled"
+            )
         }
         const files = await writeExports(workspace, outputs, signal)
         return {
           projectId,
           revision: current.revision,
           files,
+          warnings,
           manifest: manifest.map((entry, index) => ({
             ...entry,
             path: files[index],

@@ -22,6 +22,7 @@ import { GRADIENT_PRESETS } from "@/lib/pocket-draft/gradients"
 import { normalizedCustomSize } from "@/lib/pocket-draft/geometry"
 import {
   CANVAS_ASPECT_SIZES,
+  CANVAS_ASPECT_LABELS,
   CANVAS_DIMENSION_RANGE,
   MAXIMUM_CANVAS_COUNT,
   MAXIMUM_DEVICE_COPIES,
@@ -82,20 +83,7 @@ import {
   type MutationCommand,
 } from "@/lib/pocket-draft/mcp/protocol"
 
-const ASPECTS = new Set<string>([
-  "square",
-  "portrait45",
-  "portrait34",
-  "portrait23",
-  "story916",
-  "landscape43",
-  "landscape32",
-  "landscape169",
-  "appStore69",
-  "appStore65",
-  "macAppStore",
-  "custom",
-])
+const ASPECTS = new Set<string>(Object.keys(CANVAS_ASPECT_LABELS))
 
 const FONT_WEIGHTS = new Set<FontWeight>([
   "regular",

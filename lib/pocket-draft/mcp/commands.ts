@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { CANVAS_DIMENSION_RANGE } from "../models"
 import {
   aspectSchema,
   colorInputSchema,
@@ -116,8 +117,16 @@ export const COMMAND_SCHEMAS = {
   "canvases.setAspect": define({
     ...canvas,
     aspect: aspectSchema,
-    width: n.int().min(64).max(4096).optional(),
-    height: n.int().min(64).max(4096).optional(),
+    width: n
+      .int()
+      .min(CANVAS_DIMENSION_RANGE.min)
+      .max(CANVAS_DIMENSION_RANGE.max)
+      .optional(),
+    height: n
+      .int()
+      .min(CANVAS_DIMENSION_RANGE.min)
+      .max(CANVAS_DIMENSION_RANGE.max)
+      .optional(),
   }),
   "templates.apply": define(template),
   "templates.applySet": define(template),
